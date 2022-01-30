@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Interfas.Migrations
+namespace Interfas
 {
     public partial class migrationinicial : Migration
     {

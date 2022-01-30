@@ -24,23 +24,36 @@ namespace Interfas
         public MainWindow()
         {
             InitializeComponent();
+            var mostrar_datos = RolesBLL.GetLista();
+            Datos.ItemsSource = mostrar_datos;
         }
 
         private void GuardarButton(object guardar, RoutedEventArgs e)
         {
             Roles roles = new Roles(RolID.Text, Descripcion.Text, Fecha.Text);
 
-            if (!RolesBLL.Buscar(RolID.Text))
+            if (!RolesBLL.Existe(RolID.Text))
             {
-                var paso = RolesBLL.Insertar(roles);
-                MessageBox.Show("Registro creado", "Exito",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+                if (!RolesBLL.Existe_1(Descripcion.Text))
+                {
+                    var paso = RolesBLL.Insertar(roles);
+                    MessageBox.Show("Registro creado", "Exito",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("ERROR", "Fallo",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
-                MessageBox.Show("No fue posible editarlo, por que ya existe", "Fallo",
+                MessageBox.Show("ERROR", "Fallo",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            RolID.Text = "";
+            Descripcion.Text = "";
         }
 
 
@@ -53,17 +66,20 @@ namespace Interfas
             }
             else
             {
-                MessageBox.Show("No fue posible Eliminar", "Fallo",
+                MessageBox.Show("ERROR", "Fallo",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            RolID.Text = "";
+            Descripcion.Text = "";
         }
 
         private void EditarButton(object editar, RoutedEventArgs e)
         {
-           
+
             Roles roles = new Roles(RolID.Text, Descripcion.Text, Fecha.Text);
 
-            if (RolesBLL.Buscar(RolID.Text))
+            if (RolesBLL.Existe(RolID.Text))
             {
                 var paso = RolesBLL.Editar(roles);
                 MessageBox.Show("Registro fue editado con exito", "Exito",
@@ -71,12 +87,25 @@ namespace Interfas
             }
             else
             {
-                MessageBox.Show("No fue posible editarlo, por que no existe", "Fallo",
+                MessageBox.Show("ERROR", "Fallo",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            RolID.Text = "";
+            Descripcion.Text = "";
+
         }
-       
+
+        private void ActualizarButton(object actualizar, RoutedEventArgs e)
+        {
+
+            Roles roles = new Roles(RolID.Text, Descripcion.Text, Fecha.Text);
+
+            var mostrar_datos = RolesBLL.GetLista();
+            Datos.ItemsSource = mostrar_datos;
+
+        }
+
     }
 
 }

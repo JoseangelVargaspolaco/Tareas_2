@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Interfas.Migrations
+namespace Interfas
 {
     [DbContext(typeof(Contexto))]
     [Migration("20220123231833_migrationinicial")]

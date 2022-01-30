@@ -70,7 +70,7 @@ namespace Interfas
             return paso;
         }
 
-        public static bool Buscar(string id)
+        public static bool Existe(string id)
         {
 
             Contexto contexto = new Contexto();
@@ -78,6 +78,26 @@ namespace Interfas
             try
             {
                 paso = contexto.Roles.Any(e => e.Rolid == id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return paso;
+        }
+
+        public static bool Existe_1(string descripcion)
+        {
+
+            Contexto contexto = new Contexto();
+            bool paso = false;
+            try
+            {
+                paso = contexto.Roles.Any(e => e.Descripcion == descripcion);
             }
             catch (Exception)
             {
